@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%block titulo%}Jogo #{{jogo.id}}{%endblock%}
+{%block conteudo%}
+
+  <h2>{{jogo.titulo}}</h2>
+  <p><strong>ID:</strong> #{{jogo.id}}</p>
+  <p><strong>Nota:</strong> {{jogo.nota}}</p>
+  <h5>Categorias: </h5>
+  <ul>
+    {% for categoria in jogo.categorias %}
+      <li>{{categoria}}</li>
+    {% endfor %}
+  </ul>
+
+{%endblock%}
