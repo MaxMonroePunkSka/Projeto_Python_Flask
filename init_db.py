@@ -11,8 +11,10 @@ def init_db():
             nota03 REAL DEFAULT 0,
             media REAL DEFAULT 0,
             categorias TEXT DEFAULT ''
-        );
+        )
+    """)
 
+    conn.execute("""
         CREATE TABLE IF NOT EXISTS clientes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
