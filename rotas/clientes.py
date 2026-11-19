@@ -3,11 +3,12 @@ from servicos.database import get_db
 
 clientes_bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 
+conn = get_db()
+clientes = conn.execute("SELECT * FROM clientes ORDER BY nome").fetchall()
+conn.close()
+
 @clientes_bp.route("/")
 def listar():
-    conn = get_db()
-    clientes = conn.execute("SELECT * FROM clientes ORDER BY nome").fetchall()
-    conn.close()
     return render_template("clientes/lista.html", clientes=clientes)
 
 @clientes_bp.route("/<int:id>")
