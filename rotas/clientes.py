@@ -1,33 +1,44 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from servicos.operacoes_clientes import aniversario
+from flask import Blueprint, render_template, request, redirect, url_for, abort
+from servicos.database import get_db
 
-clientes_bp = Blueprint("clientes", __name__)
+clientes_bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 
-clientes = []
-
-@clientes_bp.route("/clientes")
+@clientes_bp.route("/")
 def listar():
+    conn = get_db()
+    clientes = conn.execute("SELECT * FROM clientes ORDER BY nome").fetchall()
+    conn.close()
     return render_template("clientes/lista.html", clientes=clientes)
 
-@clientes_bp.route("/clientes/<int:id>")
+@clientes_bp.route("/<int:id>")
 def detalhes(id):
-    cliente = next((c for c in clientes if c["id"] == id), None)
-    if not cliente:
-        return "Cliente não encontrado", 404
+    conn = get_db()
+    cliente = conn.execute("SELECT * FROM cliente WHERE id = ?", (id,))
+    conn.close()
+
+    if cliente is None:
+        abort(404)
     return render_template("clientes/detalhes.html", cliente=cliente)
 
-@clientes_bp.route("/clientes/novo", methods=["GET", "POST"])
+@clientes_bp.route("/novo", methods=["GET", "POST"])
 def novo():
-    erro = None
     if request.method == "POST":
-        nome = request.form.get("nome", "")
-        data_aniv = aniversario(request.form.get("data-nasc", ""))
-        apelido = request.form.get("apelido", "")
-        if not nome or not data_aniv or not apelido:
-            erro = "Preencha todos os campos."
+        nome = request.form["nome"].strip()
+        data_nasc = request.form["data-nasc"].strip()
+        apelido = request.form["apelido"].strip()
+
+        if not nome or not data_nasc or not apelido:
+            return render_template("clientes/form.html", erro = "Preencha todos os campos.")
         else:
-            clientes.append({"id": len(clientes), "nome": nome, "data_aniv": data_aniv, "apelido": apelido})
-            flash("Cliente cadastrado com sucesso!")
+            conn = get_db()
+            conn.execute(
+                "INSERT INTO clientes (nome, dataNasc, apelido) " \
+                "VALUES (?, ?, ?)",
+                (nome, data_nasc, apelido)
+            )
+            conn.commit()
+            conn.close()
             return redirect(url_for('clientes.listar'))
-    return render_template("clientes/form.html", erro=erro)
+
+    return render_template("clientes/form.html", erro=None)
 

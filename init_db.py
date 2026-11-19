@@ -18,7 +18,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS clientes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
-            dataAniv DATE,
+            dataNasc DATE,
             apelido TEXT NOT NULL
         )
     """)
