@@ -1,10 +1,10 @@
 from servicos.database import get_db
 
 def aniversario(data_nasc):
-    """Recebe uma data no formato AAAA-MM-DD e retorna um array com o mẽs e o dia."""
+    """Recebe uma data em string no formato AAAA-MM-DD e retorna uma string no formato DD/MM."""
     data_array = data_nasc.split('-')
     data_array.pop(0)
-    return data_array
+    return f"{data_array[1]}/{data_array[0]}"
 
 def get_clientes():
     conn = get_db()
