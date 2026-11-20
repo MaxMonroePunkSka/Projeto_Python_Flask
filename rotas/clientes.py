@@ -14,7 +14,7 @@ def listar():
 @clientes_bp.route("/<int:id>")
 def detalhes(id):
     conn = get_db()
-    cliente = conn.execute("SELECT * FROM cliente WHERE id = ?", (id,))
+    cliente = conn.execute("SELECT * FROM clientes WHERE id = ?", (id,)).fetchone()
     conn.close()
 
     if cliente is None:
