@@ -1,10 +1,10 @@
 {%extends 'base.html'%}
-{%block titulo%}Cliente #{{cliente['id']}}{%endblock%}
+{%block titulo%}Cliente #{{ cliente['id'] }}{%endblock%}
 {%block conteudo%}
 
   <h2>{{cliente['nome']}}</h2>
-  <p><strong>ID:</strong> #{{cliente['id']}}</p>
-  <p><strong>Apelido:</strong> {{cliente['apelido']}}</p>
-  <p><strong>Data de Aniversário:</strong> {{cliente['dataNasc']}}</p>
+  <p><strong>ID:</strong> #{{ cliente['id'] }}</p>
+  <p><strong>Apelido:</strong> {{ cliente['apelido'] }}</p>
+  <p><strong>Data de Aniversário:</strong> {{ aniversario(cliente['dataNasc']) }}</p>
 
 {%endblock%}

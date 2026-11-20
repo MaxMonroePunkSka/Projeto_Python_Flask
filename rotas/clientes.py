@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort
-from servicos.operacoes_clientes import get_db, get_clientes
+from servicos.operacoes_clientes import get_db, get_clientes, aniversario
 
 clientes_bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 
 @clientes_bp.route("/")
 def listar():
     clientes = get_clientes()
-    return render_template("clientes/lista.html", clientes=clientes)
+    return render_template("clientes/lista.html", clientes=clientes, aniversario=aniversario)
 
 @clientes_bp.route("/<int:id>")
 def detalhes(id):
@@ -16,7 +16,7 @@ def detalhes(id):
 
     if cliente is None:
         abort(404)
-    return render_template("clientes/detalhes.html", cliente=cliente)
+    return render_template("clientes/detalhes.html", cliente=cliente, aniversario=aniversario)
 
 @clientes_bp.route("/novo", methods=["GET", "POST"])
 def novo():

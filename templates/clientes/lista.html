@@ -21,10 +21,10 @@
 
         {%for c in clientes%}
           <tr>
-            <td>{{c['id']}}</td>
-            <td>{{c['nome']}}</td>
-            <td>{{c['dataNasc']}}</td>
-            <td>{{c['apelido']}}</td>
+            <td>{{ c['id'] }}</td>
+            <td>{{ c['nome'] }}</td>
+            <td>{{ aniversario(c['dataNasc']) }}</td>
+            <td>{{ c['apelido'] }}</td>
             <td>
               <a href="{{url_for('clientes.detalhes', id=c['id'])}}" class="btn btn-secondary btn-sm">Ver</a>
             </td>
