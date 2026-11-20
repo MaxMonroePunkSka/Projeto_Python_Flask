@@ -1,14 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, abort
-from servicos.database import get_db
+from servicos.operacoes_clientes import get_db, get_clientes
 
 clientes_bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 
-conn = get_db()
-clientes = conn.execute("SELECT * FROM clientes ORDER BY nome").fetchall()
-conn.close()
-
 @clientes_bp.route("/")
 def listar():
+    clientes = get_clientes()
     return render_template("clientes/lista.html", clientes=clientes)
 
 @clientes_bp.route("/<int:id>")
