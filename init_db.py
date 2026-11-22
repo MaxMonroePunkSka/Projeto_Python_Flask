@@ -2,6 +2,7 @@ from servicos.database import get_db
 
 def init_db():
     conn = get_db()
+    
     conn.execute("""
         CREATE TABLE IF NOT EXISTS jogos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,6 +23,14 @@ def init_db():
             apelido TEXT NOT NULL
         )
     """)
+
+    conn.execute(
+        "INSERT INTO jogos (titulo, nota01, nota02, nota03, media, categorias)" \
+        "VALUES" \
+        "('Minecraft', 8.9, 9.0, 9.2, 9.0, 'sobrevivencia, aventura')," \
+        "('Cult of The Lamb', 9.0, 8.0, 8.5, 8.5, 'reguelike, roguelite')," \
+        "('Dead Cells', 10.0, 9.0, 8.0, 9.0, 'heck-n-slash, roguelike')"
+    )
 
     conn.commit()
     conn.close()
