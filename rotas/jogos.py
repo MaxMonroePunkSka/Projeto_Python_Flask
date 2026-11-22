@@ -1,26 +1,20 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from servicos.operacoes_jogos import media
 
-jogos_bp = Blueprint("jogos", __name__)
+jogos_bp = Blueprint("jogos", __name__, url_prefix="/jogos")
 
-jogos = [
-    {"id": 0, "titulo": "Minecraft", "nota": 8.9, "categorias": ["sobrevivencia", "aventura"]},
-    {"id": 1, "titulo": "Dead Cells", "nota": 9.0, "categorias": ["heck'n'slash", "roguelike"]},
-    {"id": 2, "titulo": "Cult of The Lamb", "nota": 8.5, "categorias": ["roguelike", "roguelite"]},
-]
-
-@jogos_bp.route("/jogos")
+@jogos_bp.route("/")
 def listar():
     return render_template("jogos/lista.html", jogos=jogos)
 
-@jogos_bp.route("/jogos/<int:id>")
+@jogos_bp.route("/<int:id>")
 def detalhes(id):
     jogo = next((j for j in jogos if j["id"] == id), None)
     if not jogo:
         return "Jogo não encontrado", 404
     return render_template("jogos/detalhes.html", jogo=jogo)
 
-@jogos_bp.route("/jogos/novo", methods=["GET", "POST"])
+@jogos_bp.route("/novo", methods=["GET", "POST"])
 def novo():
     erro = None
     if request.method == "POST":
