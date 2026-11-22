@@ -28,7 +28,7 @@ def init_db():
         "INSERT INTO jogos (titulo, nota01, nota02, nota03, media, categorias)" \
         "VALUES" \
         "('Minecraft', 8.9, 9.0, 9.2, 9.0, 'sobrevivencia, aventura')," \
-        "('Cult of The Lamb', 9.0, 8.0, 8.5, 8.5, 'reguelike, roguelite')," \
+        "('Cult of The Lamb', 9.0, 8.0, 8.5, 8.5, 'roguelike, roguelite')," \
         "('Dead Cells', 10.0, 9.0, 8.0, 9.0, 'heck-n-slash, roguelike')"
     )
 
