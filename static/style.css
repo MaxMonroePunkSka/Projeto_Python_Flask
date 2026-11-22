@@ -51,6 +51,12 @@ footer {
     align-items: center;
 }
 
+.erro {
+    font-size: large;
+    font-weight: 600;
+    color: red;
+}
+
 h6 {
     color: gray;
     font-size: 10px;

@@ -5,7 +5,7 @@
   <h2>Cadastrar Jogo</h2>
 
   {%if erro%}
-    <div>{{erro}}</div>
+    <div class="erro">{{ erro }}</div>
   {%endif%}
 
   <form method="POST" action="{{url_for('jogos.novo')}}" class="mt-3">
