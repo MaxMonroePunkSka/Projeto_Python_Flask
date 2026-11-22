@@ -23,9 +23,9 @@ def novo():
     if request.method == "POST":
 
         titulo = request.form["titulo"].strip()
-        nota01 = float(request.form["nota01"])
-        nota02 = float(request.form["nota02"])
-        nota03 = float(request.form["nota03"])
+        nota01 = float(request.form["nota01"] or 0)
+        nota02 = float(request.form["nota02"] or 0)
+        nota03 = float(request.form["nota03"] or 0)
         cat01 = request.form["categoria01"].strip()
         cat02 = request.form["categoria02"].strip()
         media = (nota01 + nota02 + nota03)/3
@@ -36,10 +36,12 @@ def novo():
         else:
             conn = get_db()
             conn.execute(
-                "INSERT INTO jogos (titulo, nota01, nota02, nota03, media, categorias)" \
+                "INSERT INTO jogos (titulo, nota01, nota02, nota03, media, categorias) " \
                 "VALUES (?, ?, ?, ?, ?, ?)",
                 (titulo, nota01, nota02, nota03, media, categorias)
             )
+            conn.commit()
+            conn.close()
             return redirect(url_for('jogos.listar'))
 
     return render_template("jogos/form.html", erro=None)
