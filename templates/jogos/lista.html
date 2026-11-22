@@ -20,12 +20,12 @@
 
       {% for j in jogos %}
         <tr>
-          <td>{{j.id}}</td>
-          <td>{{j.titulo}}</td>
-          <td>{{j.nota}}</td>
-          <td>{{', '.join(j.categorias)}}</td>
+          <td>{{ j['id'] }}</td>
+          <td>{{ j['titulo'] }}</td>
+          <td>{{ j['media'] }}</td>
+          <td>{{ j['categorias'] }}</td>
           <td>
-            <a href="{{url_for('jogos.detalhes', id=j.id)}}" class="btn btn-secondary btn-sm">Ver</a>
+            <a href="{{ url_for('jogos.detalhes', id=j.id) }}" class="btn btn-secondary btn-sm">Ver</a>
           </td>
         </tr>
       {% endfor %}

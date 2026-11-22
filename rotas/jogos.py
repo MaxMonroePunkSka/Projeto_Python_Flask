@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
-from servicos.operacoes_jogos import media, get_jogos, get_db
+from flask import Blueprint, render_template, request, redirect, url_for, abort
+from servicos.operacoes_jogos import get_jogos, get_db
 
 jogos_bp = Blueprint("jogos", __name__, url_prefix="/jogos")
 
